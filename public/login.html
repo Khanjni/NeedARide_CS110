@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign in — NeedARide</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a href="index.html" class="logo">NeedA<span>Ride</span></a>
+      <nav class="header-nav">
+        <a href="#" class="link-list-vehicle">List your vehicle</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap auth-wrap">
+    <div class="auth-box">
+
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" id="tab-login">Sign in</button>
+        <button type="button" class="auth-tab" id="tab-register">Create account</button>
+      </div>
+
+      <!-- Sign in form -->
+      <form id="login-form" class="auth-form">
+        <div class="field">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" name="email" required placeholder="you@example.com" />
+        </div>
+        <div class="field">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" name="password" required placeholder="Password" />
+        </div>
+        <p class="form-error" id="login-error" hidden></p>
+        <button type="submit" class="btn btn-primary auth-submit">Sign in</button>
+
+        <div class="auth-divider"><span>or</span></div>
+
+        <button type="button" class="btn btn-outline auth-google">Sign in with Google</button>
+      </form>
+
+      <!-- Create account form -->
+      <form id="register-form" class="auth-form" hidden>
+        <div class="field">
+          <label for="register-name">Full name</label>
+          <input type="text" id="register-name" name="name" required placeholder="Jordan Martinez" />
+        </div>
+        <div class="field">
+          <label for="register-email">Email</label>
+          <input type="email" id="register-email" name="email" required placeholder="you@example.com" />
+        </div>
+        <div class="field">
+          <label for="register-password">Password</label>
+          <input type="password" id="register-password" name="password" required placeholder="At least 8 characters" minlength="8" />
+        </div>
+        <div class="field">
+          <label for="register-id">ID verification photo</label>
+          <input type="file" id="register-id" name="idPhoto" accept="image/*" />
+          <p class="field-hint">Only visible to admins — used to help build trust between owners and renters.</p>
+        </div>
+        <p class="form-error" id="register-error" hidden></p>
+        <button type="submit" class="btn btn-primary auth-submit">Create account</button>
+
+        <div class="auth-divider"><span>or</span></div>
+
+        <button type="button" class="btn btn-outline auth-google">Sign up with Google</button>
+      </form>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>NeedARide — CS110 project prototype.</p>
+    </div>
+  </footer>
+
+  <script src="login.js"></script>
+</body>
+</html>

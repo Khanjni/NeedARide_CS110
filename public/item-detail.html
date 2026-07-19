@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vehicle details — NeedARide</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a href="index.html" class="logo">NeedA<span>Ride</span></a>
+      <nav class="header-nav">
+        <a href="#" class="link-list-vehicle">List your vehicle</a>
+        <a href="messages.html" class="link-list-vehicle">Messages</a>
+        <a href="profile.html" class="link-list-vehicle">My Profile</a>
+        <a href="login.html" class="btn btn-outline">Sign in</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap detail-wrap">
+    <a href="index.html" class="back-link">&larr; Back to search</a>
+
+    <div class="detail-grid" id="detail-grid">
+      <!-- Filled in by item-detail.js -->
+    </div>
+
+    <section class="reviews-section">
+      <h2>Reviews</h2>
+      <div id="reviews-list" class="reviews-list"><!-- filled in by JS --></div>
+    </section>
+
+    <section class="similar-section">
+      <h2>Similar vehicles</h2>
+      <div id="similar-grid" class="listing-grid similar-grid"><!-- filled in by JS --></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>NeedARide — CS110 project prototype.</p>
+    </div>
+  </footer>
+
+  <script src="mock-data.js"></script>
+  <script src="item-detail.js"></script>
+</body>
+</html>

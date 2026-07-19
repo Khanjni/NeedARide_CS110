@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Messages — NeedARide</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a href="index.html" class="logo">NeedA<span>Ride</span></a>
+      <nav class="header-nav">
+        <a href="profile.html" class="link-list-vehicle">My Profile</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap messages-wrap">
+    <h1 class="messages-title">Messages</h1>
+
+    <div class="messages-layout">
+      <!-- Thread list -->
+      <div class="thread-list" id="thread-list">
+        <!-- filled by messages.js -->
+      </div>
+
+      <!-- Active conversation -->
+      <div class="thread-panel">
+        <div class="thread-panel-head" id="thread-panel-head">
+          <!-- filled by messages.js -->
+        </div>
+        <div class="thread-messages" id="thread-messages">
+          <!-- filled by messages.js -->
+        </div>
+        <form class="thread-input-row" id="thread-input-form">
+          <input type="text" id="thread-input" placeholder="Type a message…" autocomplete="off" />
+          <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>NeedARide — CS110 project prototype.</p>
+    </div>
+  </footer>
+
+  <script src="mock-data.js"></script>
+  <script src="messages.js"></script>
+</body>
+</html>

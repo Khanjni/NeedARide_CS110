@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Profile — NeedARide</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a href="index.html" class="logo">NeedA<span>Ride</span></a>
+      <nav class="header-nav">
+        <a href="#" class="link-list-vehicle">List your vehicle</a>
+        <a href="messages.html" class="link-list-vehicle">Messages</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap profile-wrap">
+
+    <section class="profile-header">
+      <div class="profile-avatar" id="profile-avatar">JM</div>
+      <div class="profile-header-info">
+        <h1 id="profile-name">Jordan Martinez</h1>
+        <p class="profile-rating" id="profile-rating">
+          <span class="star">★★★★★</span> 4.8 reputation (32 reviews)
+        </p>
+        <p class="profile-bio" id="profile-bio">
+          Riverside-based. Usually has a car or two listed — happy to answer questions before you book.
+        </p>
+      </div>
+      <button class="btn btn-outline" id="edit-profile-btn">Edit profile</button>
+    </section>
+
+    <!-- Edit profile form, hidden until "Edit profile" is clicked -->
+    <form class="edit-profile-form" id="edit-profile-form" hidden>
+      <div class="field">
+        <label for="edit-name">Full name</label>
+        <input type="text" id="edit-name" value="Jordan Martinez" />
+      </div>
+      <div class="field">
+        <label for="edit-bio">Short bio</label>
+        <textarea id="edit-bio" rows="3">Riverside-based. Usually has a car or two listed — happy to answer questions before you book.</textarea>
+      </div>
+      <div class="edit-actions">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-outline" id="cancel-edit-btn">Cancel</button>
+      </div>
+    </form>
+
+    <div class="profile-tabs">
+      <button type="button" class="profile-tab active" id="tab-listings">My Listings</button>
+      <button type="button" class="profile-tab" id="tab-bookings">My Bookings</button>
+    </div>
+
+    <section id="panel-listings" class="profile-panel">
+      <div class="panel-head">
+        <p class="panel-sub">Vehicles you own and list for rent.</p>
+        <a href="#" class="btn btn-primary btn-small">+ Add vehicle</a>
+      </div>
+      <div class="listing-grid" id="my-listings-grid"><!-- filled by profile.js --></div>
+    </section>
+
+    <section id="panel-bookings" class="profile-panel" hidden>
+      <p class="panel-sub">Vehicles you've booked as a renter.</p>
+      <div class="bookings-list" id="my-bookings-list"><!-- filled by profile.js --></div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>NeedARide — CS110 project prototype.</p>
+    </div>
+  </footer>
+
+  <script src="mock-data.js"></script>
+  <script src="profile.js"></script>
+</body>
+</html>

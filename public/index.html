@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NeedARide — Find a car, on your terms</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a href="index.html" class="logo">NeedA<span>Ride</span></a>
+      <nav class="header-nav">
+        <a href="#" class="link-list-vehicle">List your vehicle</a>
+        <a href="messages.html" class="link-list-vehicle">Messages</a>
+        <a href="profile.html" class="link-list-vehicle">My Profile</a>
+        <a href="login.html" class="btn btn-outline">Sign in</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">community-driven car rental</p>
+      <h1>Accommodate your vehicle for travel<br>without worry.</h1>
+      <p class="hero-sub">Search real cars from real owners nearby — no rideshare small talk, no rental counter lines.</p>
+
+      <form class="search-panel" id="search-form">
+        <div class="field">
+          <label for="location">Location</label>
+          <input type="text" id="location" name="location" placeholder="City or ZIP" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="vehicle-type">Vehicle type</label>
+          <select id="vehicle-type" name="vehicleType">
+            <option value="">Any</option>
+            <option value="sedan">Sedan</option>
+            <option value="suv">SUV</option>
+            <option value="truck">Truck</option>
+            <option value="hatchback">Hatchback</option>
+            <option value="van">Van / Minivan</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="max-price">Max price / day</label>
+          <input type="number" id="max-price" name="maxPrice" placeholder="$100" min="0" />
+        </div>
+        <div class="field">
+          <label for="date">Pickup date</label>
+          <input type="date" id="date" name="date" />
+        </div>
+        <button type="submit" class="btn btn-primary search-btn">Search</button>
+      </form>
+    </div>
+    <div class="road-divider" aria-hidden="true"></div>
+  </section>
+
+  <main class="wrap">
+    <div class="results-bar">
+      <h2 id="results-heading">Available now</h2>
+      <div class="sort-group">
+        <label for="sort">Sort by</label>
+        <select id="sort">
+          <option value="default">Recommended</option>
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="listing-grid" id="listing-grid">
+      <!-- Cards are rendered here by script.js -->
+    </div>
+
+    <p class="empty-state" id="empty-state" hidden>
+      No vehicles match those filters yet — try widening your search.
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>NeedARide — CS110 project prototype.</p>
+    </div>
+  </footer>
+
+  <script src="mock-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
