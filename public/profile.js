@@ -35,6 +35,8 @@ function showBookingsTab() {
 tabListings.addEventListener("click", showListingsTab);
 tabBookings.addEventListener("click", showBookingsTab);
 
+const userId = localStorage.getItem('userId');
+
 // --- Edit profile toggle ---
 editBtn.addEventListener("click", () => {
   editForm.hidden = false;
@@ -44,7 +46,7 @@ cancelEditBtn.addEventListener("click", () => {
   editForm.hidden = true;
   editBtn.hidden = false;
 });
-editForm.addEventListener("submit", (e) => {
+editForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const newName = document.getElementById("edit-name").value.trim();
   const newBio = document.getElementById("edit-bio").value.trim();
@@ -60,12 +62,14 @@ editForm.addEventListener("submit", (e) => {
   profileBio.textContent = newBio;
   editForm.hidden = true;
   editBtn.hidden = false;
-  // Placeholder — once the backend exists, PATCH the change to /api/users/me here.
+  // Placeholder — once the backend exists, PATCH the change to /api/users/me here.?
+  await fetch(`http://localhost:3000/api/users/${userId}`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name: newName, bio: newBio })});
 });
 
 // --- My Listings (for now: just show the first 2 mock listings as "mine") ---
-function renderMyListings() {
-  const mine = MOCK_LISTINGS.slice(0, 2);
+async function renderMyListings() {
+  const res = await fetch(`http://localhost:3000/api/users/${userId}/listings`);
+  const mine = await res.json();
   const grid = document.getElementById("my-listings-grid");
   if (mine.length === 0) {
     grid.innerHTML = `<p class="empty-state">You haven't listed a vehicle yet.</p>`;
@@ -99,15 +103,20 @@ function statusClass(status) {
   return "status-completed";
 }
 
-function renderMyBookings() {
+async function renderMyBookings() {
   const list = document.getElementById("my-bookings-list");
-  if (MOCK_BOOKINGS.length === 0) {
+  const res = await fetch(`http://localhost:3000/api/users/${userId}/bookings`);
+  const myBookings = await res.json();
+  if (myBookings.length === 0) {
     list.innerHTML = `<p class="empty-state">You haven't booked a vehicle yet.</p>`;
     return;
   }
-  list.innerHTML = MOCK_BOOKINGS.map((b) => {
-    const listing = MOCK_LISTINGS.find((l) => l.id === b.listingId);
-    if (!listing) return "";
+  const listingRes = await fetch('http://localhost:3000/api/listings');
+  const allListings = await listingRes.json();
+  
+  list.innerHTML = myBookings.map((b) => {
+    const listing = allListings.find((l) => l._id === b.listingId);
+    const carTitle = listing ? listing.title : "Vehicle";
     return `
       <a class="booking-row" href="item-detail.html?id=${listing.id}">
         <div class="booking-row-main">

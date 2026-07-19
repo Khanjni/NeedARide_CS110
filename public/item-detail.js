@@ -1,20 +1,22 @@
 // item-detail.js — Item Detail page logic
 //
-// NOTE FOR LATER: once the backend exists, replace `getListingById()`
-// and `getSimilarListings()` with real fetch calls, e.g.:
-//   const res = await fetch(`/api/listings/${id}`);
-// Rendering code below can stay the same either way.
 
 async function getListingById(id) {
-  return MOCK_LISTINGS.find((l) => l.id === id) || null;
+  const res = await fetch(`http://localhost:3000/api/listings/${id}`);
+  if (!res.ok) {
+    return null;
+  }
+  const listing = await res.json();
+  return {...listing, id: listing._id};
 }
 
 // Recommendation system (v1): same-category matching, excluding the
 // listing currently being viewed.
 async function getSimilarListings(listing) {
-  return MOCK_LISTINGS.filter(
-    (l) => l.type === listing.type && l.id !== listing.id
-  ).slice(0, 3);
+  const res = await fetch('http://localhost:3000/api/listings');
+  const allListings = await res.json();
+  return allListings .map(l => ({...l, id: l._id})) .filter ((l) => l.type === listing.type && l.id != listing.id) .slice (0,3);
+
 }
 
 function starString(rating) {

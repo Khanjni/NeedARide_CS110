@@ -1,12 +1,5 @@
 // login.js — Login / Sign In page logic
 //
-// NOTE FOR LATER: once the backend exists, replace the alert() calls
-// below with real fetch() calls, e.g.:
-//   const res = await fetch('/api/auth/login', {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify({ email, password }),
-//   });
 // If login succeeds, redirect to profile.html. If it fails, show the
 // error message returned by the server in the .form-error element.
 
@@ -32,16 +25,31 @@ function showRegister() {
 tabLogin.addEventListener("click", showLogin);
 tabRegister.addEventListener("click", showRegister);
 
-loginForm.addEventListener("submit", (e) => {
+loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = document.getElementById("login-email").value;
-  // Placeholder until the backend auth endpoint exists.
-  alert(`Would sign in as ${email} once the backend is connected.`);
+  const password = document.getElementById("login-password").value;
+  const res = await fetch('http://localhost:3000/api/auth/login' , { method: 'POST', headers: { 'Content-Type': 'application/json'}, body: JSON.stringify({ email, password }), });
+  const info =  await res.json();
+  if (res.ok) {
+    localStorage.setItem('userId', info.userId);
+    window.location.href = 'profile.html';
+  } else {
+    document.querySelector('.form-error').textContent = info.error;
+  }
 });
 
-registerForm.addEventListener("submit", (e) => {
+registerForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const name = document.getElementById("register-name").value;
-  // Placeholder until the backend auth endpoint exists.
-  alert(`Would create an account for ${name} once the backend is connected.`);
+  const email = await fetch('http://localhost:3000/api/auth/register').value;
+  const password = document.getElementById("register-password").value;
+  const res = await fetch('http://localhost:3000/api/auth/register' , { method: 'POST', headers: { 'Content-Type': 'application/json'}, body: JSON.stringify({ name, email, password }), });
+  const info = await res.json();
+  if (res.ok) {
+    localStorage.setItem('userId', info.userId);
+    window.location.href = 'profile.html';
+  } else {
+    document.querySelector('.form-error').textContent = info.error;
+  }
 });
