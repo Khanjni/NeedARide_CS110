@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const bcrypt = require('bcryptjs');
 const { MongoClient, ObjectId } = require('mongodb');
 
 const app = express();
@@ -60,19 +61,30 @@ app.post('/api/auth/register', async (req, res) => {
   if ( name == '' || email == '' || password == '') {
     return res.status(400).json({error: 'All fields are required to proceed.'});
   }
-  const newUser = { name, email, password };
-  const userResult = await db.collection('users').insertOne(newUser);
-  res.status(201).json({ message: 'User was registered successfully!', userId: userResult.insertedId.toString()});
+  const presentUser = await db.collection('users').findOne({ email });
+  if (!presentUser) {
+    const passwordHash = await bcrypt.hash(password, 10);
+    const newUser = { name, email, password: passwordHash };
+    const userResult = await db.collection('users').insertOne(newUser);
+    res.status(201).json({ message: 'User was registered successfully!', userId: userResult.insertedId.toString()});
+  } else {
+    return res.status(400).json({ error: 'Account already exists with the email entered'});
+  }
 });
 
 // POST endpoint for logging in
 app.post('/api/auth/login', async (req, res) => {
   const { email, password } = req.body;
-  const user = await db.collection('users').findOne({ email, password });
+  const user = await db.collection('users').findOne({ email });
   if (!user) {
     return res.status(401).json({ error: 'There is an invalid username or password that was entered.'});
   }
-  res.json({ message: "Your login was successful!", userId: user._id.toString()});
+  const passwordsMatch = await bcrypt.compare(password, user.password);
+  if (passwordsMatch) {
+    res.json({ message: "Your login was successful!", userId: user._id.toString()});
+  } else {
+    return res.status(401).json( { error: 'There is an invalid username or password that was entered'});
+  }
 });
 
 // GET endpoint for profile listings

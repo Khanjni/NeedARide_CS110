@@ -42,7 +42,7 @@ loginForm.addEventListener("submit", async (e) => {
 registerForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const name = document.getElementById("register-name").value;
-  const email = await fetch('http://localhost:3000/api/auth/register').value;
+  const email = document.getElementById("register-email").value;
   const password = document.getElementById("register-password").value;
   const res = await fetch('http://localhost:3000/api/auth/register' , { method: 'POST', headers: { 'Content-Type': 'application/json'}, body: JSON.stringify({ name, email, password }), });
   const info = await res.json();
