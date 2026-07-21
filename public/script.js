@@ -1,14 +1,6 @@
 // script.js — Index page logic
 // Renders vehicle cards and handles search/filter/sort.
 //
-// NOTE FOR LATER: once the backend exists, replace `getListings()`
-// with a real fetch call, e.g.:
-//   async function getListings() {
-//     const res = await fetch('/api/listings');
-//     return res.json();
-//   }
-// Everything else (rendering, filtering, sorting) can stay the same,
-// since it already just works off of a plain array of listing objects.
 
 const grid = document.getElementById("listing-grid");
 const emptyState = document.getElementById("empty-state");
@@ -16,16 +8,23 @@ const resultsHeading = document.getElementById("results-heading");
 const searchForm = document.getElementById("search-form");
 const sortSelect = document.getElementById("sort");
 
-// Stand-in for an async backend call — returns mock data for now.
 async function getListings() {
-  return MOCK_LISTINGS;
+  try {
+    const res = await fetch('http://localhost:3000/api/listings');
+    if (!res.ok) throw new Error('Listings request failed');
+    return await res.json();
+  } catch (error) {
+    return MOCK_LISTINGS;
+  }
 }
 
 // Builds the HTML for a single listing card.
 function renderCard(listing) {
-  const stars = "★".repeat(Math.round(listing.rating));
+  const rating = Number(listing.rating || 0);
+  const listingId = listing._id || listing.id;
+  const stars = "★".repeat(Math.round(rating));
   return `
-    <a class="card" href="item-detail.html?id=${listing.id}">
+    <a class="card" href="item-detail.html?id=${listingId}">
       <div class="card-media">
         <span class="card-price-tag">$${listing.pricePerDay}/day</span>
         Photo coming soon
@@ -39,7 +38,7 @@ function renderCard(listing) {
           <span class="spec-chip">${listing.transmission}</span>
         </div>
         <div class="card-footer">
-          <span class="card-rating"><span class="star">${stars}</span> ${listing.rating.toFixed(1)} (${listing.reviewCount})</span>
+          <span class="card-rating"><span class="star">${stars}</span> ${rating.toFixed(1)} (${listing.reviewCount || 0})</span>
         </div>
       </div>
     </a>
