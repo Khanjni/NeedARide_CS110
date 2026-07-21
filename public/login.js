@@ -29,14 +29,22 @@ loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = document.getElementById("login-email").value;
   const password = document.getElementById("login-password").value;
-  const res = await fetch('http://localhost:3000/api/auth/login' , { method: 'POST', headers: { 'Content-Type': 'application/json'}, body: JSON.stringify({ email, password }), });
-  const info =  await res.json();
-  if (res.ok) {
-    localStorage.setItem('userId', info.userId);
-    window.location.href = 'profile.html';
-  } else {
-    document.querySelector('.form-error').textContent = info.error;
+  const error = document.getElementById('login-error');
+  error.hidden = true;
+  try {
+    const res = await fetch('http://localhost:3000/api/auth/login' , { method: 'POST', headers: { 'Content-Type': 'application/json'}, body: JSON.stringify({ email, password }), });
+    const info = await res.json();
+    if (res.ok) {
+      localStorage.setItem('userId', info.userId);
+      localStorage.setItem('authToken', info.token);
+      window.location.href = 'profile.html';
+      return;
+    }
+    error.textContent = info.error;
+  } catch (requestError) {
+    error.textContent = 'Sign in is unavailable while the backend is offline.';
   }
+  error.hidden = false;
 });
 
 registerForm.addEventListener("submit", async (e) => {
@@ -44,12 +52,20 @@ registerForm.addEventListener("submit", async (e) => {
   const name = document.getElementById("register-name").value;
   const email = document.getElementById("register-email").value;
   const password = document.getElementById("register-password").value;
-  const res = await fetch('http://localhost:3000/api/auth/register' , { method: 'POST', headers: { 'Content-Type': 'application/json'}, body: JSON.stringify({ name, email, password }), });
-  const info = await res.json();
-  if (res.ok) {
-    localStorage.setItem('userId', info.userId);
-    window.location.href = 'profile.html';
-  } else {
-    document.querySelector('.form-error').textContent = info.error;
+  const error = document.getElementById('register-error');
+  error.hidden = true;
+  try {
+    const res = await fetch('http://localhost:3000/api/auth/register' , { method: 'POST', headers: { 'Content-Type': 'application/json'}, body: JSON.stringify({ name, email, password }), });
+    const info = await res.json();
+    if (res.ok) {
+      localStorage.setItem('userId', info.userId);
+      localStorage.setItem('authToken', info.token);
+      window.location.href = 'profile.html';
+      return;
+    }
+    error.textContent = info.error;
+  } catch (requestError) {
+    error.textContent = 'Account creation is unavailable while the backend is offline.';
   }
+  error.hidden = false;
 });

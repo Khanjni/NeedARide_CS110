@@ -9,15 +9,22 @@ const searchForm = document.getElementById("search-form");
 const sortSelect = document.getElementById("sort");
 
 async function getListings() {
-  const res = await fetch('http://localhost:3000/api/listings');
-  return await res.json();
+  try {
+    const res = await fetch('http://localhost:3000/api/listings');
+    if (!res.ok) throw new Error('Listings request failed');
+    return await res.json();
+  } catch (error) {
+    return MOCK_LISTINGS;
+  }
 }
 
 // Builds the HTML for a single listing card.
 function renderCard(listing) {
-  const stars = "★".repeat(Math.round(listing.rating));
+  const rating = Number(listing.rating || 0);
+  const listingId = listing._id || listing.id;
+  const stars = "★".repeat(Math.round(rating));
   return `
-    <a class="card" href="item-detail.html?id=${listing._id}">
+    <a class="card" href="item-detail.html?id=${listingId}">
       <div class="card-media">
         <span class="card-price-tag">$${listing.pricePerDay}/day</span>
         Photo coming soon
@@ -31,7 +38,7 @@ function renderCard(listing) {
           <span class="spec-chip">${listing.transmission}</span>
         </div>
         <div class="card-footer">
-          <span class="card-rating"><span class="star">${stars}</span> ${listing.rating.toFixed(1)} (${listing.reviewCount})</span>
+          <span class="card-rating"><span class="star">${stars}</span> ${rating.toFixed(1)} (${listing.reviewCount || 0})</span>
         </div>
       </div>
     </a>

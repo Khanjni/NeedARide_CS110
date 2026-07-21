@@ -21,7 +21,10 @@
   <main class="wrap profile-wrap">
 
     <section class="profile-header">
-      <div class="profile-avatar" id="profile-avatar">JM</div>
+      <div class="profile-avatar" id="profile-avatar">
+        <img id="profile-photo" alt="Profile photo" hidden />
+        <span id="profile-initials"></span>
+      </div>
       <div class="profile-header-info">
         <h1 id="profile-name">Jordan Martinez</h1>
         <p class="profile-rating" id="profile-rating">
@@ -42,7 +45,11 @@
       </div>
       <div class="field">
         <label for="edit-bio">Short bio</label>
-        <textarea id="edit-bio" rows="3">Riverside-based. Usually has a car or two listed — happy to answer questions before you book.</textarea>
+        <textarea id="edit-bio" rows="3"></textarea>
+      </div>
+      <div class="field">
+        <label for="edit-photo">Profile photo URL</label>
+        <input type="url" id="edit-photo" placeholder="https://example.com/photo.jpg" />
       </div>
       <div class="edit-actions">
         <button type="submit" class="btn btn-primary">Save changes</button>
@@ -76,7 +83,6 @@
     </div>
   </footer>
 
-  <script src="mock-data.js"></script>
   <script src="profile.js"></script>
 </body>
 </html>

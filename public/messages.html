@@ -35,8 +35,8 @@
           <!-- filled by messages.js -->
         </div>
         <form class="thread-input-row" id="thread-input-form">
-          <input type="text" id="thread-input" placeholder="Type a message…" autocomplete="off" />
-          <button type="submit" class="btn btn-primary">Send</button>
+          <input type="text" id="thread-input" placeholder="Type a message…" autocomplete="off" disabled />
+          <button type="submit" class="btn btn-primary" id="thread-send" disabled>Send</button>
         </form>
       </div>
     </div>
@@ -48,7 +48,6 @@
     </div>
   </footer>
 
-  <script src="mock-data.js"></script>
-  <script src="messages.js"></script>
+  <script src="messages.js?v=2"></script>
 </body>
 </html>
