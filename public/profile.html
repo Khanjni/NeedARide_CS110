@@ -12,13 +12,19 @@
     <div class="wrap header-row">
       <a href="index.html" class="logo">NeedA<span>Ride</span></a>
       <nav class="header-nav">
-        <a href="#" class="link-list-vehicle">List your vehicle</a>
+        <a href="new-listing.html" class="link-list-vehicle">List your vehicle</a>
         <a href="messages.html" class="link-list-vehicle">Messages</a>
       </nav>
     </div>
   </header>
 
   <main class="wrap profile-wrap">
+
+    <p class="empty-state" id="signed-out-message" hidden>
+      You're not signed in. <a href="login.html">Sign in</a> to see your profile.
+    </p>
+
+    <div id="profile-content">
 
     <section class="profile-header">
       <div class="profile-avatar" id="profile-avatar">JM</div>
@@ -68,15 +74,11 @@
       <div class="bookings-list" id="my-bookings-list"><!-- filled by profile.js --></div>
     </section>
 
+    </div>
+
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <p>NeedARide — CS110 project prototype.</p>
-    </div>
-  </footer>
-
-  <script src="mock-data.js"></script>
+  <script src="auth.js"></script>
   <script src="profile.js"></script>
 </body>
 </html>

@@ -1,14 +1,5 @@
 // script.js — Index page logic
 // Renders vehicle cards and handles search/filter/sort.
-//
-// NOTE FOR LATER: once the backend exists, replace `getListings()`
-// with a real fetch call, e.g.:
-//   async function getListings() {
-//     const res = await fetch('/api/listings');
-//     return res.json();
-//   }
-// Everything else (rendering, filtering, sorting) can stay the same,
-// since it already just works off of a plain array of listing objects.
 
 const grid = document.getElementById("listing-grid");
 const emptyState = document.getElementById("empty-state");
@@ -16,9 +7,17 @@ const resultsHeading = document.getElementById("results-heading");
 const searchForm = document.getElementById("search-form");
 const sortSelect = document.getElementById("sort");
 
-// Stand-in for an async backend call — returns mock data for now.
+// Fetches real listings from the backend. MongoDB documents come back
+// with `_id` instead of `id`, so we normalize that here — everything
+// else in this file can keep using `.id` like it did with mock data.
 async function getListings() {
-  return MOCK_LISTINGS;
+  const res = await fetch("/api/listings");
+  if (!res.ok) {
+    console.error("Failed to load listings:", res.status);
+    return [];
+  }
+  const data = await res.json();
+  return data.map((l) => ({ ...l, id: l._id }));
 }
 
 // Builds the HTML for a single listing card.

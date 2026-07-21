@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>List your vehicle — NeedARide</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a href="index.html" class="logo">NeedA<span>Ride</span></a>
+      <nav class="header-nav">
+        <a href="messages.html" class="link-list-vehicle">Messages</a>
+        <a href="profile.html" class="link-list-vehicle">My Profile</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap new-listing-wrap">
+
+    <p class="empty-state" id="signed-out-message" hidden>
+      You're not signed in. <a href="login.html">Sign in</a> to list a vehicle.
+    </p>
+
+    <div id="new-listing-content">
+      <h1>List your vehicle</h1>
+      <p class="panel-sub">Add a vehicle for other users to find and book.</p>
+
+      <form id="new-listing-form" class="new-listing-form">
+        <div class="field">
+          <label for="title">Title</label>
+          <input type="text" id="title" required placeholder="2021 Honda Civic" />
+        </div>
+
+        <div class="field">
+          <label for="type">Vehicle type</label>
+          <select id="type" required>
+            <option value="">Select a type</option>
+            <option value="sedan">Sedan</option>
+            <option value="suv">SUV</option>
+            <option value="truck">Truck</option>
+            <option value="hatchback">Hatchback</option>
+            <option value="van">Van / Minivan</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="location">Location</label>
+          <input type="text" id="location" required placeholder="Riverside, CA" />
+        </div>
+
+        <div class="field">
+          <label for="pricePerDay">Price per day ($)</label>
+          <input type="number" id="pricePerDay" required min="1" placeholder="45" />
+        </div>
+
+        <div class="field">
+          <label for="mpg">MPG</label>
+          <input type="number" id="mpg" required min="1" placeholder="32" />
+        </div>
+
+        <div class="field">
+          <label for="seats">Seats</label>
+          <input type="number" id="seats" required min="1" placeholder="5" />
+        </div>
+
+        <div class="field">
+          <label for="transmission">Transmission</label>
+          <select id="transmission" required>
+            <option value="">Select</option>
+            <option value="Automatic">Automatic</option>
+            <option value="Manual">Manual</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="description">Description</label>
+          <textarea id="description" rows="3" placeholder="A few details for renters..."></textarea>
+        </div>
+
+        <p class="form-error" id="new-listing-error" hidden></p>
+        <button type="submit" class="btn btn-primary">List this vehicle</button>
+      </form>
+    </div>
+
+  </main>
+
+  <script src="auth.js"></script>
+  <script src="new-listing.js"></script>
+</body>
+</html>
